@@ -1,2 +1,2 @@
 matplotlib==3.4.1
-plotly==2.16
+plotly==5.2.1
