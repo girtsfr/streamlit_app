@@ -17,8 +17,8 @@ import plotly.express as px
 df = px.data.tips()
 fig = px.histogram(data, x="price_per_square_m", nbins=100)
 # fig.show()
-st.plotly_chart(fig, theme="streamlit")
-
+st.plotly_chart(fig, theme=None)
+# theme="streamlit"
 
 # fig, ax = plt.subplots()
 # ax.hist(data['price_per_square_m'], bins=100)
