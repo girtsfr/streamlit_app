@@ -16,5 +16,6 @@ st.number_input('pick a number')
 # ax.hist(data['price_per_square_m'], bins=100)
 # st.pyplot(fig)
 
+st.bar_chart(data['price_per_square_m'])
 
-st.dataframe(data)
+# st.dataframe(data)
