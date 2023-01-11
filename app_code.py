@@ -17,6 +17,7 @@ st.number_input('pick a number')
 # st.pyplot(fig)
 
 ct = pd.cut(data['price_per_square_m'], 100).value_counts(sort=False)
+ct = pd.DataFrame(ct)
 
 st.bar_chart(ct)
 
