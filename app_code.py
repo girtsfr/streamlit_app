@@ -15,10 +15,10 @@ st.number_input('pick a number')
 import plotly.express as px
 
 df = px.data.tips()
-fig = px.histogram(data, x="price_per_square_m", nbins=100)
+fig = px.histogram(data, x="price_per_square_m", nbins=100, color="darkslateblue")
 # fig.show()
-st.plotly_chart(fig, theme=None, use_container_width=True)
-# theme="streamlit"
+st.plotly_chart(fig, theme="streamlit")
+
 
 # fig, ax = plt.subplots()
 # ax.hist(data['price_per_square_m'], bins=100)
