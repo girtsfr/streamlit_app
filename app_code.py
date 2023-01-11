@@ -3,7 +3,7 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 
 data = pd.read_csv('flats_for_rent_2023-01-05.csv')
-data = data[['rooms', 'square_m', 'floor', 'price', 'area', 'region', 'building_total_floors', 'price_per_square_m']]
+data = data[['rooms', 'square_m', 'floor', 'price', 'area', 'region', 'price_per_square_m']]
 data = data[data['price_per_square_m'] < 50]
 data = data[data['area'] == 'riga']
 
