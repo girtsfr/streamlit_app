@@ -13,7 +13,6 @@ st.number_input('pick a number')
 
 import plotly.express as px
 
-df = px.data.tips()
 fig = px.histogram(data, x="price_per_square_m", nbins=100)
 st.plotly_chart(fig, theme="streamlit")
 
