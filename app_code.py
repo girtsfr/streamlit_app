@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 data = pd.read_csv('flats_for_rent.csv')
-data = data[['rooms', 'square_m', 'floor', 'price', 'area', 'region', 'price_per_square_m']]
+data = data[['rooms', 'square_m', 'floor', 'price', 'area', 'region', 'price_per_square_m', 'time']]
 data = data[data['price_per_square_m'] < 50]
 data = data[data['area'] == 'riga']
 
