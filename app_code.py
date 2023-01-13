@@ -69,7 +69,7 @@ sale_summary = sale_summary.agg(
 # st.map(sale_data[['latitude', 'longitude']].dropna())
 
 ### CHARTS
-st.header('Count of listings')
+st.subheader('Count of listings')
 fig_count = px.line(sale_summary, y='count')
 st.plotly_chart(fig_count, theme="streamlit")
 
