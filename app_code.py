@@ -12,6 +12,9 @@ sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
 max_floors = int(sale_data['floor'].max())
+max_rooms = int(sale_data['rooms'].max())
+min_size = int(sale_data['square_m'].min())
+max_size = int(sale_data['square_m'].max())
 
 
 ### REGION SELECTION
@@ -30,6 +33,19 @@ select_floor = st.sidebar.slider('Select floor:', value=[1, max_floors], min_val
 sale_data = sale_data[sale_data['floor'] >= select_floor[0]]
 sale_data = sale_data[sale_data['floor'] <= select_floor[1]]
 
+
+### ROOM COUNT SELECTION
+select_rooms = st.sidebar.slider('Select room count:', value=[1, max_rooms], min_value = 1, max_value = max_rooms)
+
+sale_data = sale_data[sale_data['rooms'] >= select_rooms[0]]
+sale_data = sale_data[sale_data['rooms'] <= select_rooms[1]]
+
+
+### SIZE SELECTION
+select_size = st.sidebar.slider('Select size (square meters):', value=[min_size, max_size], min_value = min_size, max_value = max_size)
+
+sale_data = sale_data[sale_data['square_m'] >= select_size[0]]
+sale_data = sale_data[sale_data['square_m'] <= select_size[1]]
 
 
 ### CREATE SUMMARY TABLE
