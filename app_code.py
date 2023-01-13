@@ -76,7 +76,7 @@ st.dataframe(sale_data)
 # past x months
 # unique ads
 
-fig_histogram = px.histogram(sale_data, x="mean_price_per_square")
+fig_histogram = px.histogram(sale_data, y="mean_price_per_square")
 st.plotly_chart(fig_histogram, theme="streamlit")
 
 
