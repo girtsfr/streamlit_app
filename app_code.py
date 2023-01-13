@@ -102,7 +102,7 @@ st.plotly_chart(fig_histogram, theme="streamlit")
 
 
 ### DATAFRAME WITH CURRENT OPEN LISTINGS
-st.dataframe(sale_data[~sale_data['link'].isna()][[
+open_listings = sale_data[~sale_data['link'].isna()][[
     'street',
     'square_m',
     'rooms',
@@ -111,8 +111,17 @@ st.dataframe(sale_data[~sale_data['link'].isna()][[
     'serie',
     'price',
     'price_per_square_m',
-    'link']])
+    'link']]
 
+st.dataframe(open_listings)
+
+
+st.download_button(
+    label='Download open listings as CSV',
+    data=open_listings,
+    file_name='flats_for_sale.csv',
+    mime='text/csv',
+)
 
 
 
