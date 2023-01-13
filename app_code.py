@@ -1,11 +1,22 @@
 import streamlit as st
 import pandas as pd
 
-for_sale_data = pd.read_csv('flats_for_sale.csv')
-for_sale_data['time'] = pd.to_datetime(for_sale_data['time'], format='%Y-%m-%d')
+sale_data = pd.read_csv('flats_for_sale.csv')
+sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
-st.dataframe(for_sale_data)
+# st.dataframe(sale_data)
 
+sale_summary = sale_data.groupby('time')
+sale_summary = sale_summary.agg(
+                                count = ('price', 'count'),
+                                mean_price_per_square = ('price_per_square_m', 'mean'),
+                                median_price_per_square = ('price_per_square_m', 'median'),
+                                p_sum = ('price', 'sum'),
+                                mean_rooms = ('rooms', 'mean'),
+                                mean_square_m = ('square_m', 'mean')
+                                )
+
+st.line_chart(sale_summary['count'])
 
 
 # st.title('web app title')
