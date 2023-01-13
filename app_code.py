@@ -92,7 +92,7 @@ sale_hist['idx'] = (
 
 sale_hist = sale_hist.drop_duplicates(subset='idx')
 
-fig_histogram = px.histogram(sale_hist, x="square_m")
+fig_histogram = px.histogram(sale_hist, x="price_per_square_m")
 
 st.plotly_chart(fig_histogram, theme="streamlit")
 
