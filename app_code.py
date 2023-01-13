@@ -40,8 +40,11 @@ sale_summary = sale_summary.agg(
 # st.plotly_chart(fig, theme="streamlit")
 
 
-fig = px.line(sale_summary, y='count', title='Count of listings')
-st.plotly_chart(fig, theme="streamlit")
+fig_count = px.line(sale_summary, y='count', title='Count of listings')
+st.plotly_chart(fig_count, theme="streamlit")
+
+fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price per square meter', labels={'mean_price_per_square':'mean price per square meter'})
+st.plotly_chart(fig_price, theme="streamlit")
 
 # st.dataframe(data)
 
