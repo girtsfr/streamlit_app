@@ -11,28 +11,17 @@ sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
 
-### SIDEBAR REGION SELECTION
+### REGION SELECTION
+regions = sale_data['region'].value_counts().index.values
+regions = np.insert(regions, 0, 'All regions')
 
-regions = sale_data['region'].unique()
+select_region = st.sidebar.selectbox('Select region:', regions)
 
-selected_region = st.sidebar.selectbox('Select region:', regions)
-
-sale_data = sale_data[sale_data['region'] == selected_region]
-
-
-
+if select_region != 'All regions':
+    sale_data = sale_data[sale_data['region'] == select_region]
 
 
-
-# r_centrs = st.sidebar.checkbox('Centrs', value=True)
-# if r_centrs == False:
-#     sale_data = sale_data[sale_data['region'] != 'centrs']
-
-# r_teika = st.sidebar.checkbox('Teika', value=True)
-# if r_teika == False:
-#     sale_data = sale_data[sale_data['region'] != 'Teika']
-
-
+### CREATE SUMMARY TABLE
 sale_summary = sale_data.groupby('time')
 sale_summary = sale_summary.agg(
                                 count = ('price', 'count'),
@@ -42,6 +31,7 @@ sale_summary = sale_summary.agg(
                                 mean_rooms = ('rooms', 'mean'),
                                 mean_square_m = ('square_m', 'mean')
                                 )
+
 
 ### MAP
 # st.map(sale_data[['latitude', 'longitude']].dropna())
