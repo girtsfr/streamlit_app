@@ -71,7 +71,6 @@ st.plotly_chart(fig_count, theme="streamlit")
 fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price per square meter', labels={'mean_price_per_square':'mean price per square meter'})
 st.plotly_chart(fig_price, theme="streamlit")
 
-st.dataframe(sale_data)
 
 
 ### FILTER PAST X MONTHS
@@ -97,6 +96,18 @@ fig_histogram.update_xaxes(range=[0, 5000])
 
 st.plotly_chart(fig_histogram, theme="streamlit")
 
+
+### DATAFRAME WITH CURRENT OPEN LISTINGS
+st.dataframe(sale_data[~sale_data['link'].isna()][[
+    'street',
+    'square_m',
+    'rooms',
+    'floor',
+    'building_total_floors',
+    'serie',
+    'price',
+    'price_per_square_m',
+    'link']])
 
 
 
