@@ -26,7 +26,7 @@ max_rooms = int(sale_data['rooms'].max())
 max_size = int(sale_data['square_m'].max())
 
 st.header('Apartments for sale')
-st.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables show data according to the added filters. The dataset is updated once per day at around midnight, with listings active at that particular time.')
+st.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
 st.caption('')
 
 ### REGION SELECTION
