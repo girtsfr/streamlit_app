@@ -11,10 +11,9 @@ sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
 
-### SIDEBAR SELECTION
-r_centrs = st.sidebar.checkbox('Centrs')
-if r_centrs:
-    sale_data = sale_data[sale_data['region'] == 'centrs']
+### SIDEBAR REGION SELECTION
+r_centrs = st.sidebar.checkbox('Centrs', value=True)
+if r_centrs == False: sale_data = sale_data[sale_data['region'] != 'centrs']
 
 
 sale_summary = sale_data.groupby('time')
@@ -38,6 +37,7 @@ fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price p
 st.plotly_chart(fig_price, theme="streamlit")
 
 
+st.dataframe(sale_data)
 
 
 
@@ -49,7 +49,6 @@ st.plotly_chart(fig_price, theme="streamlit")
 
 
 
-# st.dataframe(sale_data)
 
 # st.line_chart(sale_summary['count'])
 
