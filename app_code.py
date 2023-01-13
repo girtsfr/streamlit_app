@@ -16,7 +16,13 @@ sale_summary = sale_summary.agg(
                                 mean_square_m = ('square_m', 'mean')
                                 )
 
-st.line_chart(sale_summary['count'])
+# st.line_chart(sale_summary['count'])
+
+from bokeh.plotting import figure
+chart = figure()
+chart.line(sale_summary.index, sale_summary['count'])
+st.bokeh_chart(chhart)
+#  use_container_width=True
 
 
 # st.title('web app title')
