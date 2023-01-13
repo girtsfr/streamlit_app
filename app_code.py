@@ -25,6 +25,14 @@ max_floors = int(sale_data['floor'].max())
 max_rooms = int(sale_data['rooms'].max())
 max_size = int(sale_data['square_m'].max())
 
+st.header('Apartments for sale')
+st.caption(
+    'On the sidebar at the left, you can specify the criteria by which you want to filter the data.\n
+    All charts and tables show data according to the added filters.\n
+    The dataset is updated once per day, at around midnight (with listings active listings at that particular time'
+)
+
+
 
 ### REGION SELECTION
 regions = sale_data['region'].value_counts().index.values
