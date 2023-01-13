@@ -81,10 +81,25 @@ st.plotly_chart(fig_histogram, theme='streamlit')
 
 
 
+### FILTER PAST X MONTHS
+months_back = st.number_input('Choose lookback period (in months):', min_value=1, max_value=12, value=6)
+sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=months_back)]
 
+sale_hist['idx'] = (
+    sale_hist['rooms'].astype(str)
+    + '-'
+    + sale_hist['square_m'].astype(str)
+    + '-'
+    + sale_hist['floor'].astype(str)
+    + '-'
+    + sale_hist['price'].astype(str)
+    + '-'
+    + sale_hist['street'].astype(str)
+)
 
+sale_hist = sale_hist.drop_duplicates(subset='idx')
 
-
+fig_histogram = px.histogram(sale_hist, x="square_m")
 
 
 # st.line_chart(sale_summary['count'])
@@ -98,4 +113,4 @@ st.plotly_chart(fig_histogram, theme='streamlit')
 # st.title('web app title')
 # st.text('web app text')
 # st.text_input('first name')
-# st.number_input('pick a number')
+
