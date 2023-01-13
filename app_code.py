@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 from bokeh.plotting import figure
 from bokeh.io import curdoc
 curdoc().theme = 'dark_minimal'
@@ -33,10 +34,12 @@ st.bokeh_chart(summary_chart, use_container_width=True)
 # st.text_input('first name')
 # st.number_input('pick a number')
 
-# import plotly.express as px
 
 # fig = px.histogram(data, x="price_per_square_m", nbins=100)
 # st.plotly_chart(fig, theme="streamlit")
+
+fig = px.line(sale_summary, y='count')
+st.plotly_chart(fig, theme="streamlit")
 
 # st.dataframe(data)
 
