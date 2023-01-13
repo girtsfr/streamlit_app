@@ -127,8 +127,8 @@ open_listings = sale_data[~sale_data['link'].isna()][[
     'price_per_square_m',
     'link']]
 
-st.subheader('Currentl active listings')
-st.caption('Below table shows all aprtment listings that are currently active')
+st.subheader('Active listings')
+st.caption('Below table shows all apartment listings that are currently active')
 st.dataframe(open_listings)
 
 
