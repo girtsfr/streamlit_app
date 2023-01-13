@@ -80,16 +80,19 @@ fig_count = px.line(sale_summary, y='count')
 st.plotly_chart(fig_count, theme="streamlit")
 
 
-
-
-st.header('Mean price per square meter')
+st.subheader('Mean price per square meter')
+st.caption('Below chart shows what was the mean price per square meter at particular dates')
 fig_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
 st.plotly_chart(fig_price, theme="streamlit")
 
 
 
 ### FILTER PAST X MONTHS
-months_back = st.number_input('Choose lookback period (in months):', min_value=1, max_value=12, value=6)
+
+st.subheader('Price distribution for listings posted in the last X months')
+st.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
+
+months_back = st.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
 sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=months_back)]
 
 sale_hist['idx'] = (
@@ -124,6 +127,8 @@ open_listings = sale_data[~sale_data['link'].isna()][[
     'price_per_square_m',
     'link']]
 
+st.subheader('Currentl active listings')
+st.caption('Below table shows all aprtment listings that are currently active')
 st.dataframe(open_listings)
 
 
