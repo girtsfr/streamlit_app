@@ -21,7 +21,7 @@ sale_summary = sale_summary.agg(
 
 # st.line_chart(sale_summary['count'])
 
-summary_chart = figure(x_axis_type="datetime")
+summary_chart = figure(x_axis_type="datetime", plot_height=500)
 summary_chart.line(sale_summary.index, sale_summary['count'])
 curdoc().add_root(summary_chart)
 st.bokeh_chart(summary_chart, use_container_width=True)
