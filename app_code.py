@@ -10,6 +10,7 @@ import plotly.express as px
 ### IMPORTING DATA
 sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
+sale_data = sale_data.dropna(subset=['rooms'])
 
 max_floors = int(sale_data['floor'].max())
 max_rooms = int(sale_data['rooms'].max())
