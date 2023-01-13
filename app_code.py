@@ -69,11 +69,12 @@ sale_summary = sale_summary.agg(
 # st.map(sale_data[['latitude', 'longitude']].dropna())
 
 ### CHARTS
-st.header('Listing count')
-fig_count = px.line(sale_summary, y='count', title='Count of listings')
+st.header('Count of listings')
+fig_count = px.line(sale_summary, y='count')
 st.plotly_chart(fig_count, theme="streamlit")
 
-fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price per square meter', labels={'mean_price_per_square':'mean price per square meter'})
+st.header('Mean price per square meter')
+fig_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
 st.plotly_chart(fig_price, theme="streamlit")
 
 
