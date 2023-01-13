@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from bokeh.plotting import figure
 
 sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
@@ -18,10 +19,9 @@ sale_summary = sale_summary.agg(
 
 # st.line_chart(sale_summary['count'])
 
-from bokeh.plotting import figure
 chart = figure()
 chart.line(sale_summary.index, sale_summary['count'])
-st.bokeh_chart(chhart)
+st.bokeh_chart(chart)
 #  use_container_width=True
 
 
