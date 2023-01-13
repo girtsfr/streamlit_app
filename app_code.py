@@ -25,8 +25,8 @@ if select_region != 'All regions':
     
     
 ### FLOOR SELECTION
-select_floor = st.slider('Select floor:', value=[1, max_floors])
-
+select_floor = st.slider('Select floor:', min_value = 1, max_value = max_floors)
+# value=[1, max_floors]
 sale_data = sale_data[sale_data['floor'] >= select_floor[0]]
 sale_data = sale_data[sale_data['floor'] <= select_floor[1]]
 
