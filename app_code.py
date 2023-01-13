@@ -28,7 +28,7 @@ sale_summary = sale_summary.agg(
                                 )
 
 ### MAP
-st.map(sale_data[['latitude', 'longitude']])
+st.map(sale_data[['latitude', 'longitude']].dropna())
 
 ### CHARTS
 fig_count = px.line(sale_summary, y='count', title='Count of listings')
