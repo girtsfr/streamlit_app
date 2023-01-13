@@ -29,7 +29,7 @@ st.header('Apartments for sale')
 st.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data.')
 st.caption('All charts and tables show data according to the added filters.')
 st.caption('The dataset is updated once per day, at around midnight (with listings active listings at that particular time.')
-st.caption()
+st.caption('')
 
 ### REGION SELECTION
 regions = sale_data['region'].value_counts().index.values
