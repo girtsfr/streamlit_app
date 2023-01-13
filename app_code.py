@@ -27,7 +27,10 @@ sale_summary = sale_summary.agg(
                                 mean_square_m = ('square_m', 'mean')
                                 )
 
+### MAP
+st.map(sale_data[['latitude', 'longitude']])
 
+### CHARTS
 fig_count = px.line(sale_summary, y='count', title='Count of listings')
 st.plotly_chart(fig_count, theme="streamlit")
 
