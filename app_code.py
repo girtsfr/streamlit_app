@@ -77,7 +77,7 @@ sale_summary = sale_summary.agg(
 st.subheader('Count of listings')
 st.caption('Below chart shows how many apartments were listed for sale at particular dates')
 fig_count = px.line(sale_summary, y='count')
-st.plotly_chart(fig_count, theme="streamlit", config = {'displayModeBar': False})
+st.plotly_chart(fig_count, theme="streamlit")
 
 
 
