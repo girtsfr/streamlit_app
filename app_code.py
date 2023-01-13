@@ -107,8 +107,8 @@ open_listings = sale_data[~sale_data['link'].isna()][[
     'square_m',
     'rooms',
     'floor',
-    'building_total_floors',
-    'serie',
+#     'building_total_floors',
+#     'serie',
     'price',
     'price_per_square_m',
     'link']]
@@ -116,12 +116,6 @@ open_listings = sale_data[~sale_data['link'].isna()][[
 st.dataframe(open_listings)
 
 
-st.download_button(
-    label='Download open listings as CSV',
-    data=open_listings,
-    file_name='flats_for_sale.csv',
-    mime='text/csv',
-)
 
 
 
