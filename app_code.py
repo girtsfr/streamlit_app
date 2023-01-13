@@ -12,13 +12,25 @@ sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
 
 ### SIDEBAR REGION SELECTION
-r_centrs = st.sidebar.checkbox('Centrs', value=True)
-if r_centrs == False:
-    sale_data = sale_data[sale_data['region'] != 'centrs']
 
-r_teika = st.sidebar.checkbox('Teika', value=True)
-if r_teika == False:
-    sale_data = sale_data[sale_data['region'] != 'Teika']
+regions = sale_data['region'].unique()
+
+selected_region = st.sidebar.selectbox('Select region:', regions)
+
+sale_data = sale_data[sale_data['region'] == selected_region]
+
+
+
+
+
+
+# r_centrs = st.sidebar.checkbox('Centrs', value=True)
+# if r_centrs == False:
+#     sale_data = sale_data[sale_data['region'] != 'centrs']
+
+# r_teika = st.sidebar.checkbox('Teika', value=True)
+# if r_teika == False:
+#     sale_data = sale_data[sale_data['region'] != 'Teika']
 
 
 sale_summary = sale_data.groupby('time')
@@ -32,7 +44,7 @@ sale_summary = sale_summary.agg(
                                 )
 
 ### MAP
-st.map(sale_data[['latitude', 'longitude']].dropna())
+# st.map(sale_data[['latitude', 'longitude']].dropna())
 
 ### CHARTS
 fig_count = px.line(sale_summary, y='count', title='Count of listings')
@@ -42,7 +54,6 @@ fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price p
 st.plotly_chart(fig_price, theme="streamlit")
 
 
-st.dataframe(sale_data)
 
 
 
@@ -54,6 +65,7 @@ st.dataframe(sale_data)
 
 
 
+# st.dataframe(sale_data)
 
 # st.line_chart(sale_summary['count'])
 
