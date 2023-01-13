@@ -48,6 +48,7 @@ sale_data = sale_data[sale_data['square_m'] >= select_size[0]]
 sale_data = sale_data[sale_data['square_m'] <= select_size[1]]
 
 
+
 ### CREATE SUMMARY TABLE
 sale_summary = sale_data.groupby('time')
 sale_summary = sale_summary.agg(
@@ -70,6 +71,13 @@ st.plotly_chart(fig_count, theme="streamlit")
 fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price per square meter', labels={'mean_price_per_square':'mean price per square meter'})
 st.plotly_chart(fig_price, theme="streamlit")
 
+st.dataframe(sale_data)
+
+# past x months
+# unique ads
+
+fig_histogram = px.histogram(sale_data, x="mean_price_per_square")
+st.plotly_chart(fig_histogram, theme="streamlit")
 
 
 
@@ -78,11 +86,6 @@ st.plotly_chart(fig_price, theme="streamlit")
 
 
 
-
-
-
-
-# st.dataframe(sale_data)
 
 # st.line_chart(sale_summary['count'])
 
