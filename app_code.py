@@ -22,10 +22,11 @@ sale_summary = sale_summary.agg(
 
 # st.line_chart(sale_summary['count'])
 
-summary_chart = figure(x_axis_type="datetime", plot_height=500)
-summary_chart.line(sale_summary.index, sale_summary['count'])
-curdoc().add_root(summary_chart)
-st.bokeh_chart(summary_chart, use_container_width=True)
+### BOKEH ###
+# summary_chart = figure(x_axis_type="datetime", plot_height=500)
+# summary_chart.line(sale_summary.index, sale_summary['count'])
+# curdoc().add_root(summary_chart)
+# st.bokeh_chart(summary_chart, use_container_width=True)
 
 
 
@@ -38,7 +39,8 @@ st.bokeh_chart(summary_chart, use_container_width=True)
 # fig = px.histogram(data, x="price_per_square_m", nbins=100)
 # st.plotly_chart(fig, theme="streamlit")
 
-fig = px.line(sale_summary, y='count')
+
+fig = px.line(sale_summary, y='count', title='Count of listings')
 st.plotly_chart(fig, theme="streamlit")
 
 # st.dataframe(data)
