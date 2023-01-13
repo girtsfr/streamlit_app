@@ -94,6 +94,11 @@ sale_hist = sale_hist.drop_duplicates(subset='idx')
 
 fig_histogram = px.histogram(sale_hist, x="square_m")
 
+st.plotly_chart(fig_histogram, theme="streamlit")
+
+
+
+
 
 # st.line_chart(sale_summary['count'])
 
