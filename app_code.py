@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.express as px
 from bokeh.plotting import figure
 from bokeh.io import curdoc
