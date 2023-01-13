@@ -2,14 +2,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-from bokeh.plotting import figure
-from bokeh.io import curdoc
-curdoc().theme = 'dark_minimal'
+# from bokeh.plotting import figure
+# from bokeh.io import curdoc
+# curdoc().theme = 'dark_minimal'
 
 
 ### IMPORTING DATA
 sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
+
+max_floors = int(sale_data['floor'].max())
 
 
 ### REGION SELECTION
@@ -20,6 +22,14 @@ select_region = st.sidebar.selectbox('Select region:', regions)
 
 if select_region != 'All regions':
     sale_data = sale_data[sale_data['region'] == select_region]
+    
+    
+### FLOOR SELECTION
+select_floor = st.slider('Select floor:', value=[1, max_floors])
+
+sale_data = sale_data[sale_data['floor'] >= select_floor[0]]
+sale_data = sale_data[sale_data['floor'] <= select_floor[1]]
+
 
 
 ### CREATE SUMMARY TABLE
