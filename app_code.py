@@ -73,13 +73,6 @@ st.plotly_chart(fig_price, theme="streamlit")
 
 st.dataframe(sale_data)
 
-# past x months
-# unique ads
-
-fig_histogram = px.histogram(sale_data, x='price_per_square_m')
-st.plotly_chart(fig_histogram, theme='streamlit')
-
-
 
 ### FILTER PAST X MONTHS
 months_back = st.number_input('Choose lookback period (in months):', min_value=1, max_value=12, value=6)
