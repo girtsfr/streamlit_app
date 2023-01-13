@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+
+# import plotly.graph_objects as go
+# fig = go.Figure()
+# config = {'displayModeBar': False}
+
 # from bokeh.plotting import figure
 # from bokeh.io import curdoc
 # curdoc().theme = 'dark_minimal'
@@ -71,8 +76,11 @@ sale_summary = sale_summary.agg(
 ### CHARTS
 st.subheader('Count of listings')
 st.caption('Below chart shows how many apartments were listed for sale at particular dates')
-fig_count = px.line(sale_summary, y='count', {displayModeBar: false})
-st.plotly_chart(fig_count, theme="streamlit")
+fig_count = px.line(sale_summary, y='count')
+st.plotly_chart(fig_count, theme="streamlit", config = {'displayModeBar': False})
+
+
+
 
 st.header('Mean price per square meter')
 fig_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
