@@ -21,8 +21,8 @@ sale_summary = sale_summary.agg(
 
 chart = figure()
 chart.line(sale_summary.index, sale_summary['count'])
-st.bokeh_chart(chart)
-#  use_container_width=True
+st.bokeh_chart(chart, use_container_width=True)
+
 
 
 # st.title('web app title')
