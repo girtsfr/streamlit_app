@@ -13,7 +13,12 @@ sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
 ### SIDEBAR REGION SELECTION
 r_centrs = st.sidebar.checkbox('Centrs', value=True)
-if r_centrs == False: sale_data = sale_data[sale_data['region'] != 'centrs']
+if r_centrs == False:
+    sale_data = sale_data[sale_data['region'] != 'centrs']
+
+r_teika = st.sidebar.checkbox('Teika', value=True)
+if r_teika == False:
+    sale_data = sale_data[sale_data['region'] != 'Teika']
 
 
 sale_summary = sale_data.groupby('time')
