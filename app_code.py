@@ -5,8 +5,17 @@ from bokeh.plotting import figure
 from bokeh.io import curdoc
 curdoc().theme = 'dark_minimal'
 
+
+### IMPORTING DATA
 sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
+
+
+### SIDEBAR SELECTION
+r_centrs = st.sidebar.checkbox('Centrs')
+if r_centrs:
+    sale_data = sale_data[sale_data['region'] == 'centrs']
+
 
 sale_summary = sale_data.groupby('time')
 sale_summary = sale_summary.agg(
@@ -26,11 +35,9 @@ fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price p
 st.plotly_chart(fig_price, theme="streamlit")
 
 
-# Using object notation
-add_selectbox = st.sidebar.selectbox(
-    "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone")
-)
+
+
+
 
 
 
