@@ -8,8 +8,6 @@ curdoc().theme = 'dark_minimal'
 sale_data = pd.read_csv('flats_for_sale.csv')
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
 
-# st.dataframe(sale_data)
-
 sale_summary = sale_data.groupby('time')
 sale_summary = sale_summary.agg(
                                 count = ('price', 'count'),
@@ -20,6 +18,29 @@ sale_summary = sale_summary.agg(
                                 mean_square_m = ('square_m', 'mean')
                                 )
 
+
+fig_count = px.line(sale_summary, y='count', title='Count of listings')
+st.plotly_chart(fig_count, theme="streamlit")
+
+fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price per square meter', labels={'mean_price_per_square':'mean price per square meter'})
+st.plotly_chart(fig_price, theme="streamlit")
+
+
+# Using object notation
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
+)
+
+
+
+
+
+
+
+
+# st.dataframe(sale_data)
+
 # st.line_chart(sale_summary['count'])
 
 ### BOKEH ###
@@ -28,23 +49,7 @@ sale_summary = sale_summary.agg(
 # curdoc().add_root(summary_chart)
 # st.bokeh_chart(summary_chart, use_container_width=True)
 
-
-
 # st.title('web app title')
 # st.text('web app text')
 # st.text_input('first name')
 # st.number_input('pick a number')
-
-
-# fig = px.histogram(data, x="price_per_square_m", nbins=100)
-# st.plotly_chart(fig, theme="streamlit")
-
-
-fig_count = px.line(sale_summary, y='count', title='Count of listings')
-st.plotly_chart(fig_count, theme="streamlit")
-
-fig_price = px.line(sale_summary, y='mean_price_per_square', title='Mean price per square meter', labels={'mean_price_per_square':'mean price per square meter'})
-st.plotly_chart(fig_price, theme="streamlit")
-
-# st.dataframe(data)
-
