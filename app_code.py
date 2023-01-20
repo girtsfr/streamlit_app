@@ -127,7 +127,7 @@ sale_tab.plotly_chart(fig_sale_price, theme="streamlit")
 sale_tab.subheader('Price distribution for listings posted in the last X months')
 sale_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
 
-sale_months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
+sale_months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6, key='sales_lookback')
 sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=sale_months_back)]
 
 sale_hist['idx'] = (
@@ -188,48 +188,48 @@ rent_tab.plotly_chart(fig_rent_price, theme="streamlit")
 
 ### FILTER PAST X MONTHS
 
-# rent_tab.subheader('Price distribution for listings posted in the last X months')
-# rent_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
+rent_tab.subheader('Price distribution for listings posted in the last X months')
+rent_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
 
-rent_months_back = rent_tab.number_input('Choose lookback time frame (in months):', min_value=2, max_value=12, value=6)
-# rent_hist = rent_data[rent_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=rent_months_back)]
+rent_months_back = rent_tab.number_input('Choose lookback time frame (in months):', min_value=2, max_value=12, value=6, key='rents_lookback')
+rent_hist = rent_data[rent_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=rent_months_back)]
 
-# rent_hist['idx'] = (
-#     rent_hist['rooms'].astype(str)
-#     + '-'
-#     + rent_hist['square_m'].astype(str)
-#     + '-'
-#     + rent_hist['floor'].astype(str)
-#     + '-'
-#     + rent_hist['price'].astype(str)
-#     + '-'
-#     + rent_hist['street'].astype(str)
-# )
+rent_hist['idx'] = (
+    rent_hist['rooms'].astype(str)
+    + '-'
+    + rent_hist['square_m'].astype(str)
+    + '-'
+    + rent_hist['floor'].astype(str)
+    + '-'
+    + rent_hist['price'].astype(str)
+    + '-'
+    + rent_hist['street'].astype(str)
+)
 
-# rent_hist = rent_hist.drop_duplicates(subset='idx')
+rent_hist = rent_hist.drop_duplicates(subset='idx')
 
-# fig_rent_histogram = px.histogram(rent_hist, x="price_per_square_m")
-# fig_rent_histogram.update_xaxes(range=[0, 30])
+fig_rent_histogram = px.histogram(rent_hist, x="price_per_square_m")
+fig_rent_histogram.update_xaxes(range=[0, 30])
 
-# rent_tab.plotly_chart(fig_rent_histogram, theme="streamlit")
-
-
-# ### DATAFRAME WITH CURRENT OPEN LISTINGS
-# rent_open_listings = rent_data[~rent_data['link'].isna()][[
-#     'street',
-#     'square_m',
-#     'rooms',
-#     'floor',
-# #     'building_total_floors',
-# #     'serie',
-#     'price',
-#     'price_per_square_m',
-#     'link']]
+rent_tab.plotly_chart(fig_rent_histogram, theme="streamlit")
 
 
-# rent_tab.subheader('Active listings')
-# rent_tab.caption('Below table shows all apartment listings that are currently active')
-# rent_tab.dataframe(rent_open_listings)
+### DATAFRAME WITH CURRENT OPEN LISTINGS
+rent_open_listings = rent_data[~rent_data['link'].isna()][[
+    'street',
+    'square_m',
+    'rooms',
+    'floor',
+#     'building_total_floors',
+#     'serie',
+    'price',
+    'price_per_square_m',
+    'link']]
+
+
+rent_tab.subheader('Active listings')
+rent_tab.caption('Below table shows all apartment listings that are currently active')
+rent_tab.dataframe(rent_open_listings)
 
 
 
