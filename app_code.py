@@ -21,14 +21,17 @@ sale_data = sale_data.dropna(subset=['rooms'])
 numeric_cols = ['rooms', 'square_m', 'floor', 'price', 'building_total_floors', 'price_per_square_m']
 sale_data[numeric_cols] = sale_data[numeric_cols].astype(np.int64)
 
-max_floors = int(sale_data['floor'].max())
-max_rooms = int(sale_data['rooms'].max())
-max_size = int(sale_data['square_m'].max())
 
-st.header('Apartments for sale')
-st.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
-st.caption('')
+### DEFINE FILTER RANGES
+# max_floors = int(sale_data['floor'].max())
+# max_rooms = int(sale_data['rooms'].max())
+# max_size = int(sale_data['square_m'].max())
+max_floors = int(33)
+max_rooms = int(6)
+max_size = int(640)
 
+
+### SIDEBAR ###
 ### REGION SELECTION
 regions = sale_data['region'].value_counts().index.values
 regions = np.insert(regions, 0, 'All regions')
@@ -72,30 +75,33 @@ sale_summary = sale_summary.agg(
                                 mean_square_m = ('square_m', 'mean')
                                 )
 
+### TABS ###
+sale_tab, rent_tab = st.tabs(['FOR SALE', 'FOR RENT'])
 
-### MAP
-# st.map(sale_data[['latitude', 'longitude']].dropna())
+
+### APARTMENTS FOR SALE TAB
+sale_tab.header('Apartments for sale')
+sale_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
+sale_tab.caption('')
 
 ### CHARTS
-st.subheader('Count of listings')
-st.caption('Below chart shows how many apartments were listed for sale at particular dates')
+sale_tab.subheader('Count of listings')
+sale_tab.caption('Below chart shows how many apartments were listed for sale at particular dates')
 fig_count = px.line(sale_summary, y='count')
-st.plotly_chart(fig_count, theme="streamlit")
+sale_tab.plotly_chart(fig_count, theme="streamlit")
 
-
-st.subheader('Mean price per square meter')
-st.caption('Below chart shows what was the mean price per square meter at particular dates')
+sale_tab.subheader('Mean price per square meter')
+sale_tab.caption('Below chart shows what was the mean price per square meter at particular dates')
 fig_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
-st.plotly_chart(fig_price, theme="streamlit")
-
+sale_tab.plotly_chart(fig_price, theme="streamlit")
 
 
 ### FILTER PAST X MONTHS
 
-st.subheader('Price distribution for listings posted in the last X months')
-st.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
+sale_tab.subheader('Price distribution for listings posted in the last X months')
+sale_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
 
-months_back = st.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
+months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
 sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=months_back)]
 
 sale_hist['idx'] = (
@@ -115,7 +121,7 @@ sale_hist = sale_hist.drop_duplicates(subset='idx')
 fig_histogram = px.histogram(sale_hist, x="price_per_square_m")
 fig_histogram.update_xaxes(range=[0, 5000])
 
-st.plotly_chart(fig_histogram, theme="streamlit")
+sale_tab.plotly_chart(fig_histogram, theme="streamlit")
 
 
 ### DATAFRAME WITH CURRENT OPEN LISTINGS
@@ -130,9 +136,9 @@ open_listings = sale_data[~sale_data['link'].isna()][[
     'price_per_square_m',
     'link']]
 
-st.subheader('Active listings')
-st.caption('Below table shows all apartment listings that are currently active')
-st.dataframe(open_listings)
+sale_tab.subheader('Active listings')
+sale_tab.caption('Below table shows all apartment listings that are currently active')
+sale_tab.dataframe(open_listings)
 
 
 
