@@ -186,13 +186,13 @@ fig_rent_price = px.line(rent_summary, y='mean_price_per_square', labels={'mean_
 rent_tab.plotly_chart(fig_rent_price, theme="streamlit")
 
 
-# ### FILTER PAST X MONTHS
+### FILTER PAST X MONTHS
 
-# rent_tab.subheader('Price distribution for listings posted in the last X months')
-# rent_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
+rent_tab.subheader('Price distribution for listings posted in the last X months')
+rent_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
 
-# rent_months_back = rent_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
-# rent_hist = rent_data[rent_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=rent_months_back)]
+rent_months_back = rent_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
+rent_hist = rent_data[rent_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=rent_months_back)]
 
 # rent_hist['idx'] = (
 #     rent_hist['rooms'].astype(str)
