@@ -170,66 +170,66 @@ sale_tab.dataframe(sale_open_listings)
 
 ######################################################################
 ### FOR RENT TAB ###
-rent_tab.header('Apartments for rent')
-rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
-rent_tab.caption('')
+# rent_tab.header('Apartments for rent')
+# rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
+# rent_tab.caption('')
 
-### CHARTS
-rent_tab.subheader('Count of listings')
-rent_tab.caption('Below chart shows how many apartments were listed for rent at particular dates')
-fig_rent_count = px.line(rent_summary, y='count')
-rent_tab.plotly_chart(fig_rent_count, theme="streamlit")
+# ### CHARTS
+# rent_tab.subheader('Count of listings')
+# rent_tab.caption('Below chart shows how many apartments were listed for rent at particular dates')
+# fig_rent_count = px.line(rent_summary, y='count')
+# rent_tab.plotly_chart(fig_rent_count, theme="streamlit")
 
-rent_tab.subheader('Average price per square meter')
-rent_tab.caption('Below chart shows what was the average price per square meter at particular dates')
-fig_rent_price = px.line(rent_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
-rent_tab.plotly_chart(fig_rent_price, theme="streamlit")
-
-
-### FILTER PAST X MONTHS
-
-rent_tab.subheader('Price distribution for listings posted in the last X months')
-rent_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
-
-rent_months_back = rent_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
-rent_hist = rent_data[rent_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=rent_months_back)]
-
-rent_hist['idx'] = (
-    rent_hist['rooms'].astype(str)
-    + '-'
-    + rent_hist['square_m'].astype(str)
-    + '-'
-    + rent_hist['floor'].astype(str)
-    + '-'
-    + rent_hist['price'].astype(str)
-    + '-'
-    + rent_hist['street'].astype(str)
-)
-
-rent_hist = rent_hist.drop_duplicates(subset='idx')
-
-fig_rent_histogram = px.histogram(rent_hist, x="price_per_square_m")
-fig_rent_histogram.update_xaxes(range=[0, 30])
-
-rent_tab.plotly_chart(fig_rent_histogram, theme="streamlit")
+# rent_tab.subheader('Average price per square meter')
+# rent_tab.caption('Below chart shows what was the average price per square meter at particular dates')
+# fig_rent_price = px.line(rent_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
+# rent_tab.plotly_chart(fig_rent_price, theme="streamlit")
 
 
-### DATAFRAME WITH CURRENT OPEN LISTINGS
-rent_open_listings = rent_data[~rent_data['link'].isna()][[
-    'street',
-    'square_m',
-    'rooms',
-    'floor',
-#     'building_total_floors',
-#     'serie',
-    'price',
-    'price_per_square_m',
-    'link']]
+# ### FILTER PAST X MONTHS
+
+# rent_tab.subheader('Price distribution for listings posted in the last X months')
+# rent_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
+
+# rent_months_back = rent_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
+# rent_hist = rent_data[rent_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=rent_months_back)]
+
+# rent_hist['idx'] = (
+#     rent_hist['rooms'].astype(str)
+#     + '-'
+#     + rent_hist['square_m'].astype(str)
+#     + '-'
+#     + rent_hist['floor'].astype(str)
+#     + '-'
+#     + rent_hist['price'].astype(str)
+#     + '-'
+#     + rent_hist['street'].astype(str)
+# )
+
+# rent_hist = rent_hist.drop_duplicates(subset='idx')
+
+# fig_rent_histogram = px.histogram(rent_hist, x="price_per_square_m")
+# fig_rent_histogram.update_xaxes(range=[0, 30])
+
+# rent_tab.plotly_chart(fig_rent_histogram, theme="streamlit")
 
 
-rent_tab.subheader('Active listings')
-rent_tab.caption('Below table shows all apartment listings that are currently active')
-rent_tab.dataframe(rent_open_listings)
+# ### DATAFRAME WITH CURRENT OPEN LISTINGS
+# rent_open_listings = rent_data[~rent_data['link'].isna()][[
+#     'street',
+#     'square_m',
+#     'rooms',
+#     'floor',
+# #     'building_total_floors',
+# #     'serie',
+#     'price',
+#     'price_per_square_m',
+#     'link']]
+
+
+# rent_tab.subheader('Active listings')
+# rent_tab.caption('Below table shows all apartment listings that are currently active')
+# rent_tab.dataframe(rent_open_listings)
 
 
 
