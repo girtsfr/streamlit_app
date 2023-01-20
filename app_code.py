@@ -243,7 +243,7 @@ yields_tab.subheader('Annual yield')
 yields_tab.caption('Below chart shows the annual yield of renting out an apartment, according to average rent and sale price per square meter. The formula is:')
 yields_tab.caption('(AVG rent price per square meter * 12)  /  AVG sale price per square meter')
 
-fig_yield = px.line(yield_annual, y='mean_price_per_square')
+fig_yield = px.line(yield_annual, y='mean_price_per_square', labels={'mean_price_per_square':'annual yield'})
 yields_tab.plotly_chart(fig_yield, theme="streamlit")
 
 
