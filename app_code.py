@@ -174,16 +174,16 @@ rent_tab.header('Apartments for rent')
 rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
 rent_tab.caption('')
 
-# ### CHARTS
-# rent_tab.subheader('Count of listings')
-# rent_tab.caption('Below chart shows how many apartments were listed for rent at particular dates')
-# fig_rent_count = px.line(rent_summary, y='count')
-# rent_tab.plotly_chart(fig_rent_count, theme="streamlit")
+### CHARTS
+rent_tab.subheader('Count of listings')
+rent_tab.caption('Below chart shows how many apartments were listed for rent at particular dates')
+fig_rent_count = px.line(rent_summary, y='count')
+rent_tab.plotly_chart(fig_rent_count, theme="streamlit")
 
-# rent_tab.subheader('Average price per square meter')
-# rent_tab.caption('Below chart shows what was the average price per square meter at particular dates')
-# fig_rent_price = px.line(rent_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
-# rent_tab.plotly_chart(fig_rent_price, theme="streamlit")
+rent_tab.subheader('Average price per square meter')
+rent_tab.caption('Below chart shows what was the average price per square meter at particular dates')
+fig_rent_price = px.line(rent_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
+rent_tab.plotly_chart(fig_rent_price, theme="streamlit")
 
 
 # ### FILTER PAST X MONTHS
