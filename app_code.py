@@ -236,18 +236,13 @@ rent_tab.dataframe(rent_open_listings)
 ######################################################################
 ### YIELDS TAB ###
 
-# yields_tab.header('Apartments for rent')
-# yields_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
-# yields_tab.caption('')
-
 yield_annual = (rent_summary['mean_price_per_square'] * 12) / sale_summary['mean_price_per_square']
 
 ### CHARTS
 yields_tab.subheader('Annual yield')
-yields_tab.caption('Below chart shows the annual yield for renting out an apartment')
-# yields_tab.caption('The formula is AVG price per square meter / ')
+yields_tab.caption('Below chart shows the annual yield of renting out an apartment, according to average rent and sale price per square meter. The formula is:')
 yields_tab.latex(r'''
-    \frac{AVG rent price per square meter * 12}{AVG sale price per square meter}
+    \frac{AVG  rent   price   per   square   meter   *   12}{AVG   sale   price   per   square   meter}
     ''')
 
 fig_yield = px.line(yield_annual)
