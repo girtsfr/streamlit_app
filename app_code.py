@@ -170,9 +170,9 @@ sale_tab.dataframe(sale_open_listings)
 
 ######################################################################
 ### FOR RENT TAB ###
-# rent_tab.header('Apartments for rent')
-# rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
-# rent_tab.caption('')
+rent_tab.header('Apartments for rent')
+rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
+rent_tab.caption('')
 
 # ### CHARTS
 # rent_tab.subheader('Count of listings')
