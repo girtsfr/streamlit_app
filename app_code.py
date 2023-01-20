@@ -108,7 +108,7 @@ sale_tab, rent_tab, yields_tab = st.tabs(['FOR SALE', 'FOR RENT', 'YIELDS'])
 ######################################################################
 ### FOR SALE TAB ###
 sale_tab.header('Apartments for sale')
-sale_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
+sale_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables in all the tabs are automatically updated right after the filter setting is changed. Once per day, at around midnight, the dataset is updated with the latest advertisement data.')
 sale_tab.caption('')
 
 ### CHARTS
@@ -172,7 +172,7 @@ sale_tab.dataframe(sale_open_listings)
 ######################################################################
 ### FOR RENT TAB ###
 rent_tab.header('Apartments for rent')
-rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
+rent_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables in all the tabs are automatically updated right after the filter setting is changed. Once per day, at around midnight, the dataset is updated with the latest advertisement data.')
 rent_tab.caption('')
 
 ### CHARTS
