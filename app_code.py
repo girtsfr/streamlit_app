@@ -226,6 +226,7 @@ rent_open_listings = rent_data[~rent_data['link'].isna()][[
     'price_per_square_m',
     'link']]
 
+
 rent_tab.subheader('Active listings')
 rent_tab.caption('Below table shows all apartment listings that are currently active')
 rent_tab.dataframe(rent_open_listings)
