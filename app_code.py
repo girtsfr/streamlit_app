@@ -12,7 +12,8 @@ import plotly.express as px
 # curdoc().theme = 'dark_minimal'
 
 
-### IMPORTING DATA
+### IMPORTING DATA ###
+### FOR SALE DATA
 sale_data = pd.read_csv('flats_for_sale.csv')
 
 sale_data['time'] = pd.to_datetime(sale_data['time'], format='%Y-%m-%d')
@@ -20,6 +21,15 @@ sale_data = sale_data.dropna(subset=['rooms'])
 
 numeric_cols = ['rooms', 'square_m', 'floor', 'price', 'building_total_floors', 'price_per_square_m']
 sale_data[numeric_cols] = sale_data[numeric_cols].astype(np.int64)
+
+### FOR RENT DATA
+rent_data = pd.read_csv('flats_for_rent.csv')
+
+rent_data['time'] = pd.to_datetime(rent_data['time'], format='%Y-%m-%d')
+rent_data = rent_data.dropna(subset=['rooms'])
+
+numeric_cols = ['rooms', 'square_m', 'floor', 'price', 'building_total_floors', 'price_per_square_m']
+rent_data[numeric_cols] = rent_data[numeric_cols].astype(np.int64)
 
 
 ### DEFINE FILTER RANGES
@@ -40,6 +50,7 @@ select_region = st.sidebar.selectbox('Select region:', regions)
 
 if select_region != 'All regions':
     sale_data = sale_data[sale_data['region'] == select_region]
+    rent_data = rent_data[rent_data['region'] == select_region]
     
     
 ### FLOOR SELECTION
@@ -48,12 +59,18 @@ select_floor = st.sidebar.slider('Select floor:', value=[1, max_floors], min_val
 sale_data = sale_data[sale_data['floor'] >= select_floor[0]]
 sale_data = sale_data[sale_data['floor'] <= select_floor[1]]
 
+rent_data = rent_data[rent_data['floor'] >= select_floor[0]]
+rent_data = rent_data[rent_data['floor'] <= select_floor[1]]
+
 
 ### ROOM COUNT SELECTION
 select_rooms = st.sidebar.slider('Select room count:', value=[1, max_rooms], min_value = 1, max_value = max_rooms)
 
 sale_data = sale_data[sale_data['rooms'] >= select_rooms[0]]
 sale_data = sale_data[sale_data['rooms'] <= select_rooms[1]]
+
+rent_data = rent_data[rent_data['rooms'] >= select_rooms[0]]
+rent_data = rent_data[rent_data['rooms'] <= select_rooms[1]]
 
 
 ### SIZE SELECTION
@@ -62,6 +79,8 @@ select_size = st.sidebar.slider('Select size (square meters):', value=[1, max_si
 sale_data = sale_data[sale_data['square_m'] >= select_size[0]]
 sale_data = sale_data[sale_data['square_m'] <= select_size[1]]
 
+rent_data = rent_data[rent_data['square_m'] >= select_size[0]]
+rent_data = rent_data[rent_data['square_m'] <= select_size[1]]
 
 
 ### CREATE SUMMARY TABLE
@@ -75,11 +94,22 @@ sale_summary = sale_summary.agg(
                                 mean_square_m = ('square_m', 'mean')
                                 )
 
+rent_summary = rent_data.groupby('time')
+rent_summary = rent_summary.agg(
+                                count = ('price', 'count'),
+                                mean_price_per_square = ('price_per_square_m', 'mean'),
+                                median_price_per_square = ('price_per_square_m', 'median'),
+                                p_sum = ('price', 'sum'),
+                                mean_rooms = ('rooms', 'mean'),
+                                mean_square_m = ('square_m', 'mean')
+                                )
+
+
 ### TABS ###
 sale_tab, rent_tab = st.tabs(['FOR SALE', 'FOR RENT'])
 
 
-### APARTMENTS FOR SALE TAB
+### FOR SALE TAB ###
 sale_tab.header('Apartments for sale')
 sale_tab.caption('On the sidebar at the left, you can specify the criteria by which you want to filter the data. All charts and tables are updated according to filter criteria. The dataset is updated once per day at around midnight, with listings active at that particular time.')
 sale_tab.caption('')
@@ -87,13 +117,13 @@ sale_tab.caption('')
 ### CHARTS
 sale_tab.subheader('Count of listings')
 sale_tab.caption('Below chart shows how many apartments were listed for sale at particular dates')
-fig_count = px.line(sale_summary, y='count')
-sale_tab.plotly_chart(fig_count, theme="streamlit")
+fig_sale_count = px.line(sale_summary, y='count')
+sale_tab.plotly_chart(fig_sale_count, theme="streamlit")
 
-sale_tab.subheader('Mean price per square meter')
-sale_tab.caption('Below chart shows what was the mean price per square meter at particular dates')
-fig_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
-sale_tab.plotly_chart(fig_price, theme="streamlit")
+sale_tab.subheader('Average price per square meter')
+sale_tab.caption('Below chart shows what was the average price per square meter at particular dates')
+fig_sale_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_price_per_square':'mean price per square meter'})
+sale_tab.plotly_chart(fig_sale_price, theme="streamlit")
 
 
 ### FILTER PAST X MONTHS
@@ -101,8 +131,8 @@ sale_tab.plotly_chart(fig_price, theme="streamlit")
 sale_tab.subheader('Price distribution for listings posted in the last X months')
 sale_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
 
-months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
-sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=months_back)]
+sale_months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6)
+sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=sale_months_back)]
 
 sale_hist['idx'] = (
     sale_hist['rooms'].astype(str)
@@ -118,14 +148,14 @@ sale_hist['idx'] = (
 
 sale_hist = sale_hist.drop_duplicates(subset='idx')
 
-fig_histogram = px.histogram(sale_hist, x="price_per_square_m")
-fig_histogram.update_xaxes(range=[0, 5000])
+fig_sale_histogram = px.histogram(sale_hist, x="price_per_square_m")
+fig_sale_histogram.update_xaxes(range=[0, 5000])
 
-sale_tab.plotly_chart(fig_histogram, theme="streamlit")
+sale_tab.plotly_chart(fig_sale_histogram, theme="streamlit")
 
 
 ### DATAFRAME WITH CURRENT OPEN LISTINGS
-open_listings = sale_data[~sale_data['link'].isna()][[
+sale_open_listings = sale_data[~sale_data['link'].isna()][[
     'street',
     'square_m',
     'rooms',
@@ -138,7 +168,18 @@ open_listings = sale_data[~sale_data['link'].isna()][[
 
 sale_tab.subheader('Active listings')
 sale_tab.caption('Below table shows all apartment listings that are currently active')
-sale_tab.dataframe(open_listings)
+sale_tab.dataframe(sale_open_listings)
+
+
+
+
+
+
+
+#################################################
+#################################################
+#################################################
+### FOR RENT TAB ###
 
 
 
