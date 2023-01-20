@@ -209,7 +209,7 @@ rent_hist['idx'] = (
 rent_hist = rent_hist.drop_duplicates(subset='idx')
 
 fig_rent_histogram = px.histogram(rent_hist, x="price_per_square_m")
-fig_rent_histogram.update_xaxes(range=[0, 5000])
+# fig_rent_histogram.update_xaxes(range=[0, 5000])
 
 rent_tab.plotly_chart(fig_rent_histogram, theme="streamlit")
 
