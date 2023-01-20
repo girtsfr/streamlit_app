@@ -247,7 +247,7 @@ yields_tab.subheader('Annual yield')
 yields_tab.caption('Below chart shows the annual yield for renting out an apartment')
 # yields_tab.caption('The formula is AVG price per square meter / ')
 yields_tab.latex(r'''
-    (AVG rent price per square meter * 12) / AVG sale price per square meter
+    \frac{AVG rent price per square meter * 12}{AVG sale price per square meter}
     ''')
 
 fig_yield = px.line(yield_annual)
