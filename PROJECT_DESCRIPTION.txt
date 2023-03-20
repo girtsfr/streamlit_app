@@ -1,0 +1,7 @@
+This is a project for a web app that keeps track of apartment advertisement listings on ss.lv website. Apartments for sale and for rent are tracked.
+The app can be accessed here: https://rigapartments.streamlit.app/
+
+At the end of each day, ss.lv website is scraped for apartment advertisement data.
+The data is then summarized and added to the overall dataset, and the result can be seen on the web app.
+The app shows charts of apartment listing counts and average prices at the end of each day, price distribution of listings added in recent months, as well as links to currently open listings.
+The charts and tables in the app can be easily filtered by certain criteria by using the sidebar on the left side.
