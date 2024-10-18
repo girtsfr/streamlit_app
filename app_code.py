@@ -100,49 +100,32 @@ fig_sale_price = px.line(sale_summary, y='mean_price_per_square', labels={'mean_
 sale_tab.plotly_chart(fig_sale_price, theme="streamlit")
 
 
-# ### FILTER PAST X MONTHS
+### FILTER PAST X MONTHS
 
-# sale_tab.subheader('Price distribution for listings posted in the last X months')
-# sale_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
+sale_tab.subheader('Price distribution for listings posted in the last X months')
+sale_tab.caption('Below histogram shows the distribution of prices per square meter for advertisments that were posted in the last X months (you can specify the lookback period)')
 
-# sale_months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6, key='sales_lookback')
-# sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=sale_months_back)]
+sale_months_back = sale_tab.number_input('Choose lookback time frame (in months):', min_value=1, max_value=12, value=6, key='sales_lookback')
+sale_hist = sale_data[sale_data['time'] >= pd.to_datetime('now') - pd.DateOffset(months=sale_months_back)]
 
-# sale_hist['idx'] = (
-#     sale_hist['rooms'].astype(str)
-#     + '-'
-#     + sale_hist['square_m'].astype(str)
-#     + '-'
-#     + sale_hist['floor'].astype(str)
-#     + '-'
-#     + sale_hist['price'].astype(str)
-#     + '-'
-#     + sale_hist['street'].astype(str)
-# )
+sale_hist['idx'] = (
+    sale_hist['rooms'].astype(str)
+    + '-'
+    + sale_hist['square_m'].astype(str)
+    + '-'
+    + sale_hist['floor'].astype(str)
+    + '-'
+    + sale_hist['price'].astype(str)
+    + '-'
+    + sale_hist['street'].astype(str)
+)
 
-# sale_hist = sale_hist.drop_duplicates(subset='idx')
+sale_hist = sale_hist.drop_duplicates(subset='idx')
 
-# fig_sale_histogram = px.histogram(sale_hist, x="price_per_square_m")
-# fig_sale_histogram.update_xaxes(range=[0, 5000])
+fig_sale_histogram = px.histogram(sale_hist, x="price_per_square_m")
+fig_sale_histogram.update_xaxes(range=[0, 5000])
 
-# sale_tab.plotly_chart(fig_sale_histogram, theme="streamlit")
-
-
-# ### DATAFRAME WITH CURRENT OPEN LISTINGS
-# sale_open_listings = sale_data[~sale_data['link'].isna()][[
-#     'street',
-#     'square_m',
-#     'rooms',
-#     'floor',
-# #     'building_total_floors',
-# #     'serie',
-#     'price',
-#     'price_per_square_m',
-#     'link']]
-
-# sale_tab.subheader('Active listings')
-# sale_tab.caption('Below table shows all apartment listings that are currently active')
-# sale_tab.dataframe(sale_open_listings)
+sale_tab.plotly_chart(fig_sale_histogram, theme="streamlit")
 
 
 
