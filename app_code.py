@@ -114,10 +114,6 @@ sale_hist['idx'] = (
     + sale_hist['square_m'].astype(str)
     + '-'
     + sale_hist['floor'].astype(str)
-    + '-'
-    + sale_hist['price'].astype(str)
-    + '-'
-    + sale_hist['street'].astype(str)
 )
 
 sale_hist = sale_hist.drop_duplicates(subset='idx')
