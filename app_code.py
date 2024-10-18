@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-
+ 
 ######################################################################
 ### IMPORTING DATA ###
 sale_data = pd.read_pickle('sale_data.pkl')
