@@ -11,9 +11,9 @@ rent_data = pd.read_pickle('rent_data.pkl')
 
 ######################################################################
 ### DEFINE FILTER RANGES
-max_floors = int(sale_data['floor'].max())
-max_rooms = int(sale_data['rooms'].max())
-max_size = int(sale_data['square_m'].max())
+# max_floors = int(sale_data['floor'].max())
+# max_rooms = int(sale_data['rooms'].max())
+# max_size = int(sale_data['square_m'].max())
 max_floors = int(33)
 max_rooms = int(6)
 max_size = int(640)
@@ -66,22 +66,14 @@ rent_data = rent_data[rent_data['square_m'] <= select_size[1]]
 ### CREATE SUMMARY TABLE
 sale_summary = sale_data.groupby('time')
 sale_summary = sale_summary.agg(
-                                count = ('price', 'count'),
-                                mean_price_per_square = ('price_per_square_m', 'mean'),
-                                median_price_per_square = ('price_per_square_m', 'median'),
-                                p_sum = ('price', 'sum'),
-                                mean_rooms = ('rooms', 'mean'),
-                                mean_square_m = ('square_m', 'mean')
+                                count = ('rooms', 'count'),
+                                mean_price_per_square = ('price_per_square_m', 'mean')
                                 )
 
 rent_summary = rent_data.groupby('time')
 rent_summary = rent_summary.agg(
-                                count = ('price', 'count'),
-                                mean_price_per_square = ('price_per_square_m', 'mean'),
-                                median_price_per_square = ('price_per_square_m', 'median'),
-                                p_sum = ('price', 'sum'),
-                                mean_rooms = ('rooms', 'mean'),
-                                mean_square_m = ('square_m', 'mean')
+                                count = ('rooms', 'count'),
+                                mean_price_per_square = ('price_per_square_m', 'mean')
                                 )
 
 
